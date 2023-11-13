@@ -2,11 +2,11 @@
 <html>
     <head>
         <link rel="stylesheet" href="index.css" type="text/css"/>
-        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="index.js"></script>
     </head>
 
-    <body onload="piano()">
+    <body onload="start()">
         <!--piano-->
         <audio id="keySound">
             Your browser does not support the audio element.
@@ -14,6 +14,46 @@
 
         <div id="piano"></div>
 
-        <footer>© CopyRight | Author: Henry Ye Cao | Version: v1.0</footer>
+        <hr/>
+
+        <!--pomodoro-->
+        <div id="pomodoro">
+            <h1 class="title">Pomodoro</h1>
+
+            <p id="timer">00:00:00</p>
+            <p id="status">Status:</p>
+            <p id="session">Session:</p> 
+
+            Session time:
+            <select id = "sessionHour">
+            </select>
+            :
+            <select id = "sessionMinute">
+            </select>
+            :
+            <select id = "sessionSecond">
+            </select>
+
+            Break time:
+            <select id = "breakHour">
+            </select>
+            :
+            <select id = "breakMinute">
+            </select>
+            :
+            <select id = "breakSecond">
+            </select>
+
+            <button onclick="setTimer();">Enter</button>
+            
+            <br/>
+            <br/>
+
+            <button onclick="startTimer();">Start</button>
+            <button onclick="stopTimer();">Stop</button>
+            <button onclick="resetTimer();">Reset</button>
+        </div>
+
+        <footer>© CopyRight | Author: Henry Ye Cao | Version: v2.0</footer>
     </body>
 </html>

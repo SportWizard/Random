@@ -1,4 +1,20 @@
+* {
+    text-align: center;
+}
+
+.title {
+    font-size: 70px;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 /* piano */
+
 #piano .whiteKey, #piano .whiteKeyFake{
     height: 200px;
     width: 100px;
@@ -17,6 +33,16 @@
     float: right;
 }
 
-footer {
-    text-align: center;
+/* pomodoro */
+
+#pomodoro #timer {
+    font-size: 30px;
+}
+
+#pomodoro #session {
+    font-size: 17px;
+}
+
+#pomodoro #sessionSecond, #pomodoro #breakSecond {
+    margin-right: 20px;
 }
