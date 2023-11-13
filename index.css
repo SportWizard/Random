@@ -1,0 +1,22 @@
+/* piano */
+#piano .whiteKey, #piano .whiteKeyFake{
+    height: 200px;
+    width: 100px;
+    background-color: lightgray;
+}
+
+#piano .whiteKeyFake {
+    display: inline-block;
+    border: solid black;
+}
+
+#piano .blackKey {
+    height: 100px;
+    width: 50px;
+    background-color: black;
+    float: right;
+}
+
+footer {
+    text-align: center;
+}
