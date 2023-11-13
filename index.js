@@ -285,6 +285,8 @@ function stopTimer() {
 
 function resetTimer() {
     document.getElementById("pomodoro").style.backgroundColor = "white";
+    clearInterval(timerInterval);
+    timerInterval = null;
     
     updateTimer("00", "00", "00");  
     document.getElementById("session").innerHTML = "Session:";
