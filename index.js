@@ -129,6 +129,7 @@ function selectTime() {
 var onSession = true;
 var currentSession = 1;
 var timerInterval;
+var running = false;
 
 var sessionHour;
 var sessionMinute;
@@ -194,97 +195,111 @@ function setTimer() {
     }
 }
 
-function startTimer() {
-    if (!timerInterval) {
-        timerInterval = setInterval(function() {
-            if (sessionHour == 0 && sessionMinute == 0 && sessionSecond == 0 && onSession) {
-                document.getElementById("pomodoro").style.backgroundColor = "white";
-                
-                clearInterval(timerInterval);
-                timerInterval = null;
-                
-                onSession = false;
+function startStopTimer() {
+    if (!running) {
+        document.getElementById("startStopTimer").innerHTML = "Stop";
+        running = true;
 
-                setTimer();
-            }
-            else if (breakHour == 0 && breakMinute == 0 && breakSecond == 0 && !onSession) {
-                document.getElementById("pomodoro").style.backgroundColor = "white";
-                
-                clearInterval(timerInterval);
-                timerInterval = null;
-                
-                onSession = true;
+        if (!timerInterval) {
+            timerInterval = setInterval(function() {
+                if (sessionHour == 0 && sessionMinute == 0 && sessionSecond == 0 && onSession) {
+                    document.getElementById("startStopTimer").innerHTML = "Start";
+                    document.getElementById("pomodoro").style.backgroundColor = "white";
+                    
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    
+                    onSession = false;
+                    running = false;
 
-                currentSession++;
-
-                setTimer();
-            }
-            else if (onSession) {
-                document.getElementById("pomodoro").style.backgroundColor = "red";
-
-                if (sessionMinute == 0 && sessionSecond == 0) {
-                    sessionMinute = 59;
-                    sessionHour--;
+                    setTimer();
                 }
-                if (sessionSecond == 0) {
-                    sessionSecond = 59;
-                    sessionMinute--;
-                }
+                else if (breakHour == 0 && breakMinute == 0 && breakSecond == 0 && !onSession) {
+                    document.getElementById("startStopTimer").innerHTML = "Start";
+                    document.getElementById("pomodoro").style.backgroundColor = "white";
+                    
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    
+                    onSession = true;
+                    running = false;
 
-                sessionHourString = sessionHour;
-                sessionMinuteString = sessionMinute;
-                sessionSecondString = sessionSecond;
-        
-                if (sessionHour <= 9)
-                    sessionHourString = sessionHour.toString().padStart(2, '0');
-                if (sessionMinute <= 9)
-                    sessionMinuteString = sessionMinute.toString().padStart(2, '0');
-                if (sessionSecond <= 9)
-                    sessionSecondString = sessionSecond.toString().padStart(2, '0');
+                    currentSession++;
+
+                    setTimer();
+                }
+                else if (onSession) {
+                    document.getElementById("pomodoro").style.backgroundColor = "red";
+
+                    if (sessionMinute == 0 && sessionSecond == 0) {
+                        sessionMinute = 59;
+                        sessionHour--;
+                    }
+                    if (sessionSecond == 0) {
+                        sessionSecond = 59;
+                        sessionMinute--;
+                    }
+
+                    sessionHourString = sessionHour;
+                    sessionMinuteString = sessionMinute;
+                    sessionSecondString = sessionSecond;
             
-                updateTimer(sessionHourString, sessionMinuteString, sessionSecondString);
+                    if (sessionHour <= 9)
+                        sessionHourString = sessionHour.toString().padStart(2, '0');
+                    if (sessionMinute <= 9)
+                        sessionMinuteString = sessionMinute.toString().padStart(2, '0');
+                    if (sessionSecond <= 9)
+                        sessionSecondString = sessionSecond.toString().padStart(2, '0');
+                
+                    updateTimer(sessionHourString, sessionMinuteString, sessionSecondString);
 
-                sessionSecond--;
-            }
-            else if (!onSession) {
-                document.getElementById("pomodoro").style.backgroundColor = "lightblue";
-
-                if (breakMinute == 0 && breakSecond == 0) {
-                    breakMinute = 59;
-                    breakHour--;
+                    sessionSecond--;
                 }
-                if (breakSecond == 0) {
-                    breakSecond = 59;
-                    breakMinute--;
-                }
+                else if (!onSession) {
+                    document.getElementById("pomodoro").style.backgroundColor = "lightblue";
 
-                breakHourString = breakHour;
-                breakMinuteString = breakMinute;
-                breakSecondString = breakSecond;
-        
-                if (breakHour <= 9)
-                    breakHourString = breakHour.toString().padStart(2, '0');
-                if (breakMinute <= 9)
-                    breakMinuteString = breakMinute.toString().padStart(2, '0');
-                if (breakSecond <= 9)
-                    breakSecondString = breakSecond.toString().padStart(2, '0');
+                    if (breakMinute == 0 && breakSecond == 0) {
+                        breakMinute = 59;
+                        breakHour--;
+                    }
+                    if (breakSecond == 0) {
+                        breakSecond = 59;
+                        breakMinute--;
+                    }
+
+                    breakHourString = breakHour;
+                    breakMinuteString = breakMinute;
+                    breakSecondString = breakSecond;
             
-                updateTimer(breakHourString, breakMinuteString, breakSecondString);
+                    if (breakHour <= 9)
+                        breakHourString = breakHour.toString().padStart(2, '0');
+                    if (breakMinute <= 9)
+                        breakMinuteString = breakMinute.toString().padStart(2, '0');
+                    if (breakSecond <= 9)
+                        breakSecondString = breakSecond.toString().padStart(2, '0');
+                
+                    updateTimer(breakHourString, breakMinuteString, breakSecondString);
 
-                breakSecond--;
-            }
-        }, 1000);
+                    breakSecond--;
+                }
+            }, 1000);
+        }
+    }
+    else {
+        document.getElementById("startStopTimer").innerHTML = "Start";
+        document.getElementById("pomodoro").style.backgroundColor = "white";
+        
+        clearInterval(timerInterval);
+        timerInterval = null;
+
+        running = false;
     }
 }
 
-function stopTimer() {
-    document.getElementById("pomodoro").style.backgroundColor = "white";
-    clearInterval(timerInterval);
-    timerInterval = null;
-}
-
 function resetTimer() {
+    document.getElementById("startStopTimer").innerHTML = "Start";
     document.getElementById("pomodoro").style.backgroundColor = "white";
+    
     clearInterval(timerInterval);
     timerInterval = null;
     
@@ -292,5 +307,6 @@ function resetTimer() {
     document.getElementById("session").innerHTML = "Session:";
     
     onSession = true;
+    running = false;
     currentSession = 1;
 }
